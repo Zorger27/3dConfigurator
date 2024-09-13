@@ -26,7 +26,7 @@ export default {
   setup() {
     const canvasContainer = ref(null);
     let scene, camera, renderer, horseModel;
-    let isRotatingClockwise = false;
+    let isRotatingClockwise = true;
     let isRotatingCounterClockwise = false;
 
     const init = () => {
@@ -140,11 +140,6 @@ export default {
       const animate = () => {
         requestAnimationFrame(animate);
 
-        // // Если модель загружена, можно вращать её
-        // if (horseModel) {
-        //   horseModel.rotation.y += 0.01; // Вращаем модель
-        // }
-
         // Вращение модели по кнопкам
         if (horseModel) {
           if (isRotatingClockwise) {
@@ -219,13 +214,13 @@ export default {
     <div class="scene-container" ref="canvasContainer"></div>
     <!-- Кнопки управления вращением -->
     <div class="rotation-controls">
-      <button @click="rotateClockwise" title="Rotate clockwise">
+      <button @click="rotateClockwise" :title="$t ('rotating.clockwise')">
         <i class="fas fa-arrow-rotate-right"></i>
       </button>
-      <button @click="stopRotation" title="Stop rotation">
+      <button @click="stopRotation" :title="$t ('rotating.stop')">
         <i class="fas fa-stop"></i>
       </button>
-      <button @click="rotateCounterClockwise" title="Rotate counterclockwise">
+      <button @click="rotateCounterClockwise" :title="$t ('rotating.counterclockwise')">
         <i class="fas fa-arrow-rotate-left"></i>
       </button>
     </div>

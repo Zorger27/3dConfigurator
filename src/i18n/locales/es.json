@@ -28,6 +28,11 @@
     "name": "Configurador № 3",
     "disc": "Descripción"
   },
+  "rotating": {
+    "clockwise": "Girar en sentido horario",
+    "counterclockwise": "Girar en sentido antihorario",
+    "stop": "Dejar de rotar"
+  },
   "about": {
     "title": "Configuradores 3D",
     "more01": "Más información...",

@@ -28,6 +28,11 @@
     "name": "Configurator № 3",
     "disc": "Description"
   },
+  "rotating": {
+    "clockwise": "Rotate clockwise",
+    "counterclockwise": "Rotate counterclockwise",
+    "stop": "Stop rotation"
+  },
   "about": {
     "title": "3D Configurators",
     "more01": "More information...",
