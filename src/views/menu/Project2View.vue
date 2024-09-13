@@ -46,6 +46,10 @@ export default {
       const controls = new OrbitControls(camera, renderer.domElement);
       controls.enableDamping = true;
 
+      // Создаем группу для наклона
+      const sceneGroup = new THREE.Group();
+      scene.add(sceneGroup);
+
       scene.add(camera);
 
       // Используем GLTFLoader для загрузки модели
@@ -59,7 +63,7 @@ export default {
 
           // Загружаем текстуру
           const textureLoader = new TextureLoader();
-          const vaseTexture = textureLoader.load('/assets/img/cube3/cube3-11.webp'); // Путь к текстуре
+          const vaseTexture = textureLoader.load('/assets/img/cube3/cube3-10.webp'); // Путь к текстуре
 
           vaseModel.traverse((child) => {
             if (child instanceof THREE.Mesh) {
@@ -69,7 +73,7 @@ export default {
                   if (material instanceof THREE.MeshStandardMaterial) {
                     material.map = vaseTexture; // Применяем текстуру к материалу
                     material.needsUpdate = true; // Обновляем материал после изменений
-                    material.color.multiplyScalar(5); // Увеличиваем яркость на 50%
+                    material.color.multiplyScalar(3); // Увеличиваем яркость на 50%
                     material.roughness = 0.1; // Снижаем шероховатость
                     material.metalness = 0.5; // Добавляем металлический эффект
                   }
@@ -78,7 +82,7 @@ export default {
                 // Если один материал
                 child.material.map = vaseTexture; // Применяем текстуру к материалу
                 child.material.needsUpdate = true; // Обновляем материал после изменений
-                child.material.color.multiplyScalar(5); // Увеличиваем яркость на 50%
+                child.material.color.multiplyScalar(3); // Увеличиваем яркость на 50%
                 child.material.roughness = 0.1; // Снижаем шероховатость
                 child.material.metalness = 0.5; // Добавляем металлический эффект
               }
@@ -92,7 +96,10 @@ export default {
           // Сдвигаем модель вниз
           vaseModel.position.y = -height / 2;
 
-          scene.add(vaseModel);
+          // Добавляем модель в сцену
+          sceneGroup.add(vaseModel);
+
+          // scene.add(vaseModel);
         },
         undefined,
         (error) => {
@@ -101,6 +108,10 @@ export default {
       );
 
       // Добавляем освещение
+      // Окружающий свет (освещает всю сцену равномерно)
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6); // Светлый белый свет с интенсивностью 0.6
+      scene.add(ambientLight);
+
       // Направленный свет (как солнечный свет)
       const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Направленный свет с интенсивностью 1
       directionalLight.position.set(5, 10, 5); // Позиционируем его выше и сбоку
@@ -108,6 +119,10 @@ export default {
 
       // Добавляем рендерер в контейнер
       canvasContainer.value.appendChild(renderer.domElement);
+
+      // Устанавливаем наклон сцены
+      const sceneRotationAngle = 30; // Угол наклона в градусах
+      sceneGroup.rotation.x = THREE.MathUtils.degToRad(sceneRotationAngle);
 
       // Обновляем сцену
       const animate = () => {

@@ -3,7 +3,6 @@ import { ref, onMounted, onUnmounted } from 'vue';
 import * as THREE from 'three';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-// import {TextureLoader} from "three";
 import CanvasFullScreen from "@/components/util/CanvasFullScreen.vue";
 import ToggleFullScreen from "@/components/util/ToggleFullScreen.vue";
 import {openGraphMixin} from "@/assets/ogimage/openGraphMixin";
@@ -66,28 +65,6 @@ export default {
           // После загрузки модели добавляем её в сцену
           horseModel = gltf.scene;
           horseModel.scale.set(10, 10, 10); // Настраиваем масштаб модели
-
-          // // Загружаем текстуру
-          // const textureLoader = new TextureLoader();
-          // const horseTexture = textureLoader.load('/assets/img/cube3/cube3-09.webp'); // Путь к текстуре
-          //
-          // horseModel.traverse((child) => {
-          //   if (child instanceof THREE.Mesh) {
-          //     if (Array.isArray(child.material)) {
-          //       // Если у объекта несколько материалов
-          //       child.material.forEach((material) => {
-          //         if (material instanceof THREE.MeshStandardMaterial) {
-          //           material.map = horseTexture; // Применяем текстуру к материалу
-          //           material.needsUpdate = true; // Обновляем материал после изменений
-          //         }
-          //       });
-          //     } else if (child.material instanceof THREE.MeshStandardMaterial) {
-          //       // Если один материал
-          //       child.material.map = horseTexture; // Применяем текстуру к материалу
-          //       child.material.needsUpdate = true; // Обновляем материал после изменений
-          //     }
-          //   }
-          // });
 
           const applyColorToModel = (model, color) => {
             model.traverse((child) => {
