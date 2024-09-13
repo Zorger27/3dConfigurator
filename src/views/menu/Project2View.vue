@@ -197,7 +197,7 @@ export default {
 
 <template>
   <div class="container">
-    <h1>{{ $t('project3.name') }} <CanvasFullScreen :canvasContainer="canvasContainer"></CanvasFullScreen> <ToggleFullScreen></ToggleFullScreen></h1>
+    <h1>{{ $t('project2.name') }} <CanvasFullScreen :canvasContainer="canvasContainer"></CanvasFullScreen> <ToggleFullScreen></ToggleFullScreen></h1>
     <line></line>
     <div class="scene-container" ref="canvasContainer"></div>
     <!-- Кнопки управления вращением -->
