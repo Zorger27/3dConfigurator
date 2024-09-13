@@ -1,0 +1,42 @@
+{
+  "locale": {
+    "en": "English",
+    "uk": "Ukrainian",
+    "es": "Spanish"
+  },
+  "header": {
+    "prg01": "Configurator-1",
+    "prg02": "Configurator-2",
+    "prg03": "Configurator-3",
+    "about": "About"
+  },
+  "footer": {
+    "text1": "Designed By ",
+    "text2": "Zorger",
+    "text3": ".",
+    "text4": "All rights reserved"
+  },
+  "project1": {
+    "name": "Configurator № 1",
+    "disc": "Description"
+  },
+  "project2": {
+    "name": "Configurator № 2",
+    "disc": "Description"
+  },
+  "project3": {
+    "name": "Configurator № 3",
+    "disc": "Description"
+  },
+  "about": {
+    "title": "3D Configurators",
+    "more01": "More information...",
+    "more02": "This web application allows the user to interactively change the model (product) they like. The changes occur in 3D mode.",
+    "more03": "The user can examine this model (product) very carefully from different sides: approach it, move away from it, turn it in different directions.",
+    "more04": "There are a LOT of interesting things here! \uD83D\uDE09\uD83E\uDD13",
+    "more05": "Welcome! \uD83E\uDD29\uD83D\uDE0E",
+    "technologies": "Technologies",
+    "name": "Name",
+    "version": "Version"
+  }
+}

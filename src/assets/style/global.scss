@@ -1,0 +1,33 @@
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  background-color: white;
+  font-size: 18px;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+line{
+  content:'';
+  display:block;
+  width:75%;
+  border:1px solid;
+  margin-bottom: 4px;
+}
+table {border-collapse: collapse;}
+
+.fa, .fas {cursor: pointer;}
+.fa.fa-th {color: deepskyblue; margin-right: 0.5rem;}
+.fa.fa-list {color: darkgoldenrod; margin-right: 0.5rem;}
+.fas.fa-arrow-alt-circle-down {color: mediumvioletred;}
+.fas.fa-arrow-alt-circle-up {color: lightseagreen;}
+
+@media(max-width:1020px) {
+  line {width: 100%;}
+}
+@media(max-width:768px) {
+  line {width: 100%;}
+}
