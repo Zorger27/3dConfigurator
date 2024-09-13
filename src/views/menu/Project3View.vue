@@ -26,7 +26,7 @@ export default {
   setup() {
     const canvasContainer = ref(null);
     let scene, camera, renderer, horseModel;
-    let isRotatingClockwise = true;
+    let isRotatingClockwise = false;
     let isRotatingCounterClockwise = false;
 
     const init = () => {
@@ -243,24 +243,26 @@ export default {
   .rotation-controls {
     position: absolute;
     top: 50%;
-    right: 20px; /* Размещение кнопок справа */
+    right: 40px; /* Размещение кнопок справа */
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
 
     button {
-      background-color: #87ceeb;
       color: white;
       border: none;
-      padding: 10px;
-      margin-bottom: 10px;
+      padding: 15px;
+      margin-bottom: 14px;
       cursor: pointer;
-      font-size: 18px;
+      font-size: 24px;
       border-radius: 5px;
+      background-color: #87ceeb;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: ease-in-out, background-color .2s, box-shadow .2s;
 
       &:hover {
         background-color: #00bfff; /* Более яркий цвет при наведении */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
       }
     }
   }
@@ -269,12 +271,29 @@ export default {
 @media(max-width: 1020px) {
   .container {
     h1 {font-size: 2.3rem;margin: 0.6rem auto;}
+    .rotation-controls {
+      right: 22px; /* Размещение кнопок справа */
+      button {
+        padding: 13px;
+        margin-bottom: 10px;
+        font-size: 22px;
+      }
+    }
   }
 }
 
 @media (max-width: 768px) {
   .container {
     h1 {font-size: 2rem;margin: 0.5rem auto;}
+
+    .rotation-controls {
+      right: 20px; /* Размещение кнопок справа */
+      button {
+        padding: 10px;
+        margin-bottom: 10px;
+        font-size: 18px;
+      }
+    }
   }
 }
 </style>
