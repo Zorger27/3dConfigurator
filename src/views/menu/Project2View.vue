@@ -12,13 +12,13 @@ export default {
   components: {CanvasFullScreen, ToggleFullScreen},
   mounted() {
     const mainTitle = '3D Configurators - Project № 2';
-    // const title = '3D Configurators - Project № 2';
-    // const metaDescription = '3D Configurators';
-    // const description = '3D Configurators - Project № 2';
-    // const imageUrl = 'https://vue-threejs-template.vercel.app/assets/ogimage/bmp/project2.jpg';
-    // const url = 'https://vue-threejs-template.vercel.app/project2';
-    //
-    // this.setOpenGraphTags(metaDescription, title, description, imageUrl, url);
+    const title = '3D Configurators - Project № 2';
+    const metaDescription = '3D Configurators';
+    const description = '3D Configurators - Project № 2';
+    const imageUrl = 'https://3d-configurator-max.vercel.app/assets/ogimage/bmp/project2.jpg';
+    const url = 'https://3d-configurator-max.vercel.app/project2';
+
+    this.setOpenGraphTags(metaDescription, title, description, imageUrl, url);
     this.setPageTitle(mainTitle);
   },
   methods: {},

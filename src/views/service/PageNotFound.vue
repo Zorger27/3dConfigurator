@@ -6,13 +6,13 @@ export default {
   mixins: [openGraphMixin],
   mounted() {
     const mainTitle = 'Page NOT Found';
-    // const title = '3D Configurators - Page NOT Found';
-    // const metaDescription = '3D Configurators';
-    // const description = '3D Configurators - Page NOT Found';
-    // const imageUrl = 'https://vue-threejs-template.vercel.app/assets/ogimage/bmp/image_404.jpg';
-    // const url = 'https://vue-threejs-template.vercel.app';
-    //
-    // this.setOpenGraphTags(metaDescription, title, description, imageUrl, url);
+    const title = '3D Configurators - Page NOT Found';
+    const metaDescription = '3D Configurators';
+    const description = '3D Configurators - Page NOT Found';
+    const imageUrl = 'https://3d-configurator-max.vercel.app/assets/ogimage/bmp/image_404.jpg';
+    const url = 'https://3d-configurator-max.vercel.app';
+
+    this.setOpenGraphTags(metaDescription, title, description, imageUrl, url);
     this.setPageTitle(mainTitle);
   },
   components: {},

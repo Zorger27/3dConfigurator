@@ -1,3 +1,3 @@
 User-agent: *
 Disallow:
-Sitemap: https://vue-threejs-template.vercel.app/sitemap.xml
+Sitemap: https://3d-configurator-max.vercel.app/sitemap.xml

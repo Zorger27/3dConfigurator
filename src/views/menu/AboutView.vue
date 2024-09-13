@@ -18,13 +18,13 @@ export default {
   },
   mounted() {
     const mainTitle = 'About these 3D Configurators';
-    // const title = 'About these 3D Configurators';
-    // const metaDescription = '3D Configurators';
-    // const description = 'About these 3D Configurators';
-    // const imageUrl = 'https://vue-threejs-template.vercel.app/assets/ogimage/bmp/about.jpg';
-    // const url = 'https://vue-threejs-template.vercel.app/about';
+    const title = 'About these 3D Configurators';
+    const metaDescription = '3D Configurators';
+    const description = 'About these 3D Configurators';
+    const imageUrl = 'https://3d-configurator-max.vercel.app/assets/ogimage/bmp/about.jpg';
+    const url = 'https://3d-configurator-max.vercel.app/about';
 
-    // this.setOpenGraphTags(metaDescription, title, description, imageUrl, url);
+    this.setOpenGraphTags(metaDescription, title, description, imageUrl, url);
     this.setPageTitle(mainTitle);
   },
   methods: {

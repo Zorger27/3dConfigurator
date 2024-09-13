@@ -1,7 +1,7 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackTagsPlugin = require('html-webpack-tags-plugin')
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
-// const SitemapPlugin = require('sitemap-webpack-plugin').default
+const SitemapPlugin = require('sitemap-webpack-plugin').default
 
 module.exports = {
   pages: {
@@ -13,7 +13,7 @@ module.exports = {
     }
   },
   pwa: {
-    // manifestPath: "https://vue-threejs-template.vercel.app/assets/favicon/manifest.webmanifest",
+    manifestPath: "https://3d-configurator-max.vercel.app/assets/favicon/manifest.webmanifest",
     iconPaths: {
       favicon32: null,
       favicon16: null,
@@ -48,11 +48,11 @@ module.exports = {
           {attributes: {property: 'twitter:title', content: '3D Configurators'}},
           {attributes: {property: 'og:description', content: '3D Configurators'}},
           {attributes: {property: 'twitter:description', content: '3D Configurators'}},
-          // {attributes: {property: 'og:image', content: 'https://vue-threejs-template.vercel.app/assets/ogimage/bmp/image_all.jpg'}},
-          // {attributes: {property: 'twitter:image', content: 'https://vue-threejs-template.vercel.app/assets/ogimage/bmp/image_all.jpg'}},
-          // {attributes: {property: 'og:url', content: 'https://vue-threejs-template.vercel.app'}},
+          {attributes: {property: 'og:image', content: 'https://3d-configurator-max.vercel.app/assets/ogimage/bmp/image_all.jpg'}},
+          {attributes: {property: 'twitter:image', content: 'https://3d-configurator-max.vercel.app/assets/ogimage/bmp/image_all.jpg'}},
+          {attributes: {property: 'og:url', content: 'https://3d-configurator-max.vercel.app'}},
           {attributes: {property: 'og:type', content: 'website'}},
-          {attributes: {property: 'og:site_name', content: 'https://Zorin.Expert'}},
+          {attributes: {property: 'og:site_name', content: 'https://3d-configurator-max.vercel.app'}},
           {attributes: {property: 'twitter:card', content: 'summary_large_image'}}
         ]
       }),
@@ -70,18 +70,18 @@ module.exports = {
           developerURL: null
         }
       }),
-      // new SitemapPlugin({
-      //   base: 'https://vue-threejs-template.vercel.app', // Базовый URL моего сайта
-      //   paths: [
-      //     { path: '/', priority: 1, changefreq: 'always' },
-      //     { path: '/project2', priority: 1, changefreq: 'daily' },
-      //     { path: '/project3', priority: 1, changefreq: 'daily' },
-      //     { path: '/about', priority: 1, changefreq: 'always' },
-      //   ],
-      //   options: {
-      //     skipgzip: true
-      //   },
-      // }),
+      new SitemapPlugin({
+        base: 'https://3d-configurator-max.vercel.app', // Базовый URL моего сайта
+        paths: [
+          { path: '/', priority: 1, changefreq: 'always' },
+          { path: '/project2', priority: 1, changefreq: 'daily' },
+          { path: '/project3', priority: 1, changefreq: 'daily' },
+          { path: '/about', priority: 1, changefreq: 'always' },
+        ],
+        options: {
+          skipgzip: true
+        },
+      }),
     ]
   }
 }
