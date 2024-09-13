@@ -28,6 +28,16 @@ export default {
     let scene, camera, renderer, horseModel;
     let isRotatingClockwise = false;
     let isRotatingCounterClockwise = false;
+    // Первоначальный цвет модели
+    const initialColor = 0x87ceeb;
+
+    const applyMaterialSettings = (material, color) => {
+      material.color.set(color); // Устанавливаем заданный цвет
+      material.color.multiplyScalar(3); // Увеличиваем яркость на 50%
+      material.roughness = 0.1; // Снижаем шероховатость
+      material.metalness = 0.5; // Добавляем металлический эффект
+      material.needsUpdate = true; // Обновляем материал после изменений
+    };
 
     const init = () => {
       // Создаем сцену
@@ -79,29 +89,27 @@ export default {
           //   }
           // });
 
-          // Красим цветом
-          horseModel.traverse((child) => {
-            if (child instanceof THREE.Mesh) {
-              // Проверяем, если это MeshStandardMaterial, и меняем цвет
-              if (Array.isArray(child.material)) {
-                // Если материалов несколько, проходим по каждому
-                child.material.forEach((material) => {
-                  if (material instanceof THREE.MeshStandardMaterial) {
-                    material.color.set(0x87ceeb); // Светло-голубой
-                    material.color.multiplyScalar(3); // Увеличиваем яркость на 50%
-                    material.roughness = 0.1; // Снижает шероховатость, делая материал более глянцевым
-                    material.metalness = 0.5; // Добавляет металлический эффект, увеличивая контраст
-                  }
-                });
-              } else if (child.material instanceof THREE.MeshStandardMaterial) {
-                // Если один материал, просто меняем его цвет
-                child.material.color.set(0x87ceeb); // Светло-голубой
-                child.material.color.multiplyScalar(3); // Увеличиваем яркость на 50%
-                child.material.roughness = 0.1; // Снижает шероховатость, делая материал более глянцевым
-                child.material.metalness = 0.5; // Добавляет металлический эффект, увеличивая контраст
+          const applyColorToModel = (model, color) => {
+            model.traverse((child) => {
+              if (child instanceof THREE.Mesh && child.material) {
+                if (Array.isArray(child.material)) {
+                  // Если у объекта несколько материалов, применяем настройки ко всем
+                  child.material.forEach((material) => {
+                    if (material instanceof THREE.MeshStandardMaterial) {
+                      applyMaterialSettings(material, color);
+                    }
+                  });
+                } else if (child.material instanceof THREE.MeshStandardMaterial) {
+                  // Если у объекта один материал
+                  applyMaterialSettings(child.material, color);
+                }
               }
-            }
-          });
+            });
+          };
+
+          // Применяем начальный цвет
+          applyColorToModel(horseModel, initialColor);
+
 
           // Определяем границы модели (bounding box)
           const boundingBox = new THREE.Box3().setFromObject(horseModel);
@@ -175,6 +183,33 @@ export default {
       isRotatingCounterClockwise = false;
     };
 
+    // Функция для изменения цвета модели
+    const changeColor = (color) => {
+      if (horseModel) {
+        horseModel.traverse((child) => {
+          if (child instanceof THREE.Mesh) {
+            const materials = Array.isArray(child.material) ? child.material : [child.material];
+            materials.forEach((material) => {
+              if (material instanceof THREE.MeshStandardMaterial) {
+                applyMaterialSettings(material, color); // Применяем настройки к каждому материалу
+              }
+            });
+          }
+        });
+      }
+    };
+
+    // Функция для изменения цвета через палитру
+    const changeColorFromPicker = (event) => {
+      const color = event.target.value;
+      changeColor(new THREE.Color(color)); // Преобразуем цвет из hex
+    };
+
+    // Функция для сброса к первоначальному цвету
+    const resetColor = () => {
+      changeColor(initialColor); // Возвращаемся к исходному светло-голубому цвету
+    };
+
     const onWindowResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -201,7 +236,10 @@ export default {
       canvasContainer,
       rotateClockwise,
       rotateCounterClockwise,
-      stopRotation
+      stopRotation,
+      changeColor, // Возвращаем функцию для использования в шаблоне
+      changeColorFromPicker, // Добавляем функцию для цветовой палитры
+      resetColor // Добавляем функцию сброса цвета
     };
   },
 }
@@ -222,6 +260,20 @@ export default {
       </button>
       <button @click="rotateCounterClockwise" :title="$t ('rotating.counterclockwise')">
         <i class="fas fa-arrow-rotate-left"></i>
+      </button>
+    </div>
+    <!-- Кнопки выбора цвета -->
+    <div class="color-controls">
+      <button @click="changeColor(0xff0000)" title="Красный" class="color-button" style="background-color: #ff0000;"></button>
+      <button @click="changeColor(0x00ff00)" title="Зелёный" class="color-button" style="background-color: #00ff00;"></button>
+      <button @click="changeColor(0x0000ff)" title="Синий" class="color-button" style="background-color: #0000ff;"></button>
+      <button @click="changeColor(0xffffff)" title="Белый" class="color-button" style="background-color: #ffffff;"></button>
+      <button @click="changeColor(0xffd700)" title="Золотистый" class="color-button" style="background-color: #ffd700;"></button>
+      <!-- Цветовая палитра -->
+      <input type="color" @input="changeColorFromPicker" title="Выбор цвета" class="color-picker"/>
+      <!-- Кнопка сброса к первоначальным настройкам -->
+      <button @click="resetColor" title="Сброс к исходным настройкам" class="color-button reset-button">
+        <i class="fas fa-reply"></i> <!-- Иконка для сброса -->
       </button>
     </div>
   </div>
@@ -266,6 +318,55 @@ export default {
       }
     }
   }
+  .color-controls {
+    position: absolute;
+    left: 40px; /* Размещение кнопок слева */
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+
+    .color-button {
+      width: 50px;
+      height: 50px;
+      //border: none;
+      border: 1px solid #ccc;
+      margin-bottom: 14px;
+      cursor: pointer;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.2s, box-shadow 0.2s;
+
+      &:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      }
+    }
+    .color-picker {
+      width: 50px;
+      height: 50px;
+      padding: 0;
+      margin-bottom: 14px;
+      cursor: pointer;
+      //border: none;
+      border: 1px solid #c048c0;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.2s;
+
+      &:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      }
+    }
+    .reset-button {
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+
+      &:hover {
+        background-color: #e0e0e0;
+      }
+      .fas {font-size: 24px;}
+    }
+  }
 }
 
 @media(max-width: 1020px) {
@@ -273,10 +374,28 @@ export default {
     h1 {font-size: 2.3rem;margin: 0.6rem auto;}
     .rotation-controls {
       right: 22px; /* Размещение кнопок справа */
+      top: 60%;
       button {
         padding: 13px;
         margin-bottom: 10px;
         font-size: 22px;
+      }
+    }
+    .color-controls {
+      left: 22px; /* Размещение кнопок слева */
+      top: 60%;
+      .color-button {
+        width: 45px;
+        height: 45px;
+        margin-bottom: 10px;
+      }
+      .color-picker {
+        width: 45px;
+        height: 45px;
+        margin-bottom: 10px;
+      }
+      .reset-button {
+        .fas {font-size: 22px;}
       }
     }
   }
@@ -288,10 +407,28 @@ export default {
 
     .rotation-controls {
       right: 20px; /* Размещение кнопок справа */
+      top: 60%;
       button {
         padding: 10px;
         margin-bottom: 10px;
         font-size: 18px;
+      }
+    }
+    .color-controls {
+      left: 20px; /* Размещение кнопок слева */
+      top: 60%;
+      .color-button {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 10px;
+      }
+      .color-picker {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 10px;
+      }
+      .reset-button {
+        .fas {font-size: 18px;}
       }
     }
   }
