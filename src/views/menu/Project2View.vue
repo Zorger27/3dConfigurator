@@ -27,18 +27,25 @@ export default {
   setup() {
     const canvasContainer = ref(null);
     let scene, camera, renderer, vaseModel;
-    let isRotatingClockwise = false;
+    let isRotatingClockwise = true;
     let isRotatingCounterClockwise = false;
 
     // Определение текстур
     const textures = {
-      texture1: '/assets/img/cube3/cube3-10.webp',
-      texture2: '/assets/img/cube3/cube3-09.webp',
-      texture3: '/assets/img/cube3/cube3-27.webp',
-      texture4: '/assets/img/cube3/cube3-18.webp'
+      texture1: '/assets/img/cube3/cube3-09.webp',
+      texture2: '/assets/img/cube3/cube3-27.webp',
+      texture3: '/assets/img/cube3/cube3-18.webp'
     };
 
     const textureLoader = new TextureLoader();
+
+    // Начальные настройки для сброса модели
+    const initialSettings = {
+      texture: '/assets/img/cube3/cube3-10.webp', // Путь к начальной текстуре
+      color: new THREE.Color(0xffffff), // Используем THREE.Color для работы с цветом
+      roughness: 0.1, // Начальная шероховатость
+      metalness: 0.5, // Начальный металлический эффект
+    };
 
     // Метод для загрузки текстуры с диска
     const uploadTexture = (event) => {
@@ -67,6 +74,37 @@ export default {
       reader.readAsDataURL(file); // Чтение файла как URL изображения
     };
 
+    // Функция для сброса модели к первоначальным настройкам
+    const resetModelSettings = () => {
+      textureLoader.load(initialSettings.texture, (loadedTexture) => {
+        vaseModel.traverse((child) => {
+          if (child instanceof THREE.Mesh) {
+            const materials = Array.isArray(child.material) ? child.material : [child.material];
+            materials.forEach((material) => {
+              if (material instanceof THREE.MeshStandardMaterial) {
+                // Сбрасываем флаг применения яркости
+                material.userData.isBrightnessApplied = false;
+
+                // Применяем начальную текстуру
+                material.map = loadedTexture;
+
+                // Применяем начальный цвет с увеличением яркости
+                const brightenedColor = initialSettings.color.clone();
+                brightenedColor.multiplyScalar(3); // Увеличиваем яркость цвета в 4 раза
+
+                // Устанавливаем начальный цвет, шероховатость и металлический эффект
+                material.color = brightenedColor;
+                material.roughness = initialSettings.roughness;
+                material.metalness = initialSettings.metalness;
+
+                material.needsUpdate = true; // Обновляем материал
+              }
+            });
+          }
+        });
+      });
+    };
+
     const init = () => {
       // Создаем сцену
       scene = new THREE.Scene();
@@ -86,7 +124,6 @@ export default {
       // Создаем группу для наклона
       const sceneGroup = new THREE.Group();
       scene.add(sceneGroup);
-
       scene.add(camera);
 
       // Используем GLTFLoader для загрузки модели
@@ -98,8 +135,28 @@ export default {
           vaseModel = gltf.scene;
           vaseModel.scale.set(6, 6, 6); // Настраиваем масштаб модели
 
-          // Устанавливаем начальную текстуру
-          changeTexture('texture1');
+          // Загружаем начальную текстуру и применяем её
+          textureLoader.load(initialSettings.texture, (loadedTexture) => {
+              vaseModel.traverse((child) => {
+                if (child instanceof THREE.Mesh) {
+                  const materials = Array.isArray(child.material) ? child.material : [child.material];
+                  materials.forEach((material) => {
+                    if (material instanceof THREE.MeshStandardMaterial) {
+                      // Увеличиваем яркость цвета
+                      const brightenedColor = initialSettings.color.clone();
+                      brightenedColor.multiplyScalar(3); // Увеличиваем яркость цвета в 4 раза
+
+                      // Применяем начальные настройки
+                      material.map = loadedTexture; // Устанавливаем текстуру
+                      material.color = brightenedColor; // Устанавливаем яркий цвет
+                      material.roughness = initialSettings.roughness; // Устанавливаем шероховатость
+                      material.metalness = initialSettings.metalness; // Устанавливаем металлический эффект
+                      material.needsUpdate = true; // Обновляем материал
+                    }
+                  });
+                }
+              })
+          });
 
           // Определяем границы модели (bounding box)
           const boundingBox = new THREE.Box3().setFromObject(vaseModel);
@@ -160,41 +217,17 @@ export default {
         textureLoader.load(textures[textureKey], (loadedTexture) => {
           vaseModel.traverse((child) => {
             if (child instanceof THREE.Mesh) {
-              if (Array.isArray(child.material)) {
-                child.material = child.material.map((material) => {
-                  // Проверяем, если яркость уже была применена
-                  const isBrightnessApplied = material.userData.isBrightnessApplied || false;
-
-                  // Клонируем цвет, чтобы изменения не затронули оригинал
-                  const newColor = material.color.clone();
-                  if (!isBrightnessApplied) {
-                    newColor.multiplyScalar(3); // Увеличиваем яркость
-                  }
-
-                  // Создаем новый материал с нужными параметрами
-                  const newMaterial = new THREE.MeshStandardMaterial({
-                    map: loadedTexture,
-                    color: newColor,
-                    roughness: 0.1,
-                    metalness: 0.5,
-                  });
-
-                  // Устанавливаем флаг, чтобы не применять яркость повторно
-                  newMaterial.userData.isBrightnessApplied = true;
-
-                  return newMaterial;
-                });
-              } else if (child.material instanceof THREE.MeshStandardMaterial) {
+              const applyBrightness = (material) => {
                 // Проверяем, если яркость уже была применена
-                const isBrightnessApplied = child.material.userData.isBrightnessApplied || false;
+                const isBrightnessApplied = material.userData.isBrightnessApplied || false;
+                const newColor = material.color.clone(); // Клонируем цвет, чтобы не менять оригинал
 
-                // Клонируем цвет, чтобы изменения не затронули оригинал
-                const newColor = child.material.color.clone();
                 if (!isBrightnessApplied) {
-                  newColor.multiplyScalar(3); // Увеличиваем яркость
+                  // Применяем увеличение яркости только один раз
+                  newColor.multiplyScalar(1.5); // Увеличиваем яркость
                 }
 
-                // Создаем новый материал с нужными параметрами
+                // Создаем новый материал с текстурой и цветом
                 const newMaterial = new THREE.MeshStandardMaterial({
                   map: loadedTexture,
                   color: newColor,
@@ -205,8 +238,22 @@ export default {
                 // Устанавливаем флаг, чтобы не применять яркость повторно
                 newMaterial.userData.isBrightnessApplied = true;
 
-                child.material = newMaterial;
+                return newMaterial;
+              };
+
+              // Если у меша несколько материалов
+              if (Array.isArray(child.material)) {
+                child.material = child.material.map((material) => {
+                  if (material instanceof THREE.MeshStandardMaterial) {
+                    return applyBrightness(material);
+                  }
+                  return material;
+                });
+              } else if (child.material instanceof THREE.MeshStandardMaterial) {
+                // Если один материал
+                child.material = applyBrightness(child.material);
               }
+
               child.material.needsUpdate = true; // Обновляем материал
             }
           });
@@ -257,6 +304,7 @@ export default {
     return {
       canvasContainer,
       uploadTexture,
+      resetModelSettings, // Возвращаем функцию для сброса модели
       rotateClockwise,
       rotateCounterClockwise,
       stopRotation,
@@ -285,23 +333,23 @@ export default {
     </div>
     <!-- Кнопки управления текстурами -->
     <div class="texture-controls">
-      <button @click="changeTexture('texture2')" class="button" title="Texture 2">
+      <button @click="changeTexture('texture1')" class="button" :title="$t('texture.texture1')">
         <i class="fa-solid fa-mountain-city"></i>
       </button>
-      <button @click="changeTexture('texture3')" class="button" title="Texture 3">
+      <button @click="changeTexture('texture2')" class="button" :title="$t('texture.texture2')">
         <i class="fa-brands fa-canadian-maple-leaf"></i>
       </button>
-      <button @click="changeTexture('texture4')" class="button" title="Texture 4">
+      <button @click="changeTexture('texture3')" class="button" :title="$t('texture.texture3')">
         <i class="fa-solid fa-cloud-sun"></i>
       </button>
       <!-- Кнопка для загрузки текстуры с диска -->
-      <input type="file" @change="uploadTexture" id="file-input" class="file-input" title="Загрузить текстуру">
-      <label for="file-input" class="button upload">
-<!--        <i class="fa-solid fa-upload"></i>-->
-        <i class="fa-solid fa-cloud-arrow-up"></i>
+      <input type="file" @change="uploadTexture" id="file-input" class="file-input">
+      <label for="file-input" class="button upload" :title="$t('texture.upload')">
+        <i class="fa-solid fa-upload"></i>
+<!--        <i class="fa-solid fa-cloud-arrow-up"></i>-->
       </label>
       <!-- Кнопка сброса к первоначальным настройкам -->
-      <button @click="changeTexture('texture1')" style="background-color: #f0f0f0; color: black; border: 1px solid #ccc;" class="button" :title="$t ('changeColor.reset')">
+      <button @click="resetModelSettings" class="button reset" :title="$t('changeColor.reset')">
         <i class="fas fa-reply"></i>
       </button>
     </div>
@@ -386,6 +434,17 @@ export default {
         background-color: deeppink;
       }
     }
+
+    .reset {
+      color: black;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+
+      &:hover {
+        background-color: #e0e0e0;
+      }
+    }
+
     /* Скрываем оригинальный input */
     .file-input {
       display: none;

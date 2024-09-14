@@ -5,9 +5,9 @@
     "es": "Spanish"
   },
   "header": {
-    "prg01": "Configurator-1",
-    "prg02": "Configurator-2",
-    "prg03": "Configurator-3",
+    "prg01": "Multi",
+    "prg02": "Texture",
+    "prg03": "Color",
     "about": "About"
   },
   "footer": {
@@ -17,15 +17,15 @@
     "text4": "All rights reserved"
   },
   "project1": {
-    "name": "Configurator № 1",
+    "name": "Multi Configurator",
     "disc": "Description"
   },
   "project2": {
-    "name": "Configurator № 2",
+    "name": "Texture configurator",
     "disc": "Description"
   },
   "project3": {
-    "name": "Configurator № 3",
+    "name": "Color configurator",
     "disc": "Description"
   },
   "rotating": {
@@ -41,6 +41,12 @@
     "golden": "Golden",
     "picker": "Color selection",
     "reset": "Reset to default settings"
+  },
+  "texture": {
+    "texture1": "Loading texture #1",
+    "texture2": "Loading texture #2",
+    "texture3": "Loading texture #3",
+    "upload": "Load texture..."
   },
   "about": {
     "title": "3D Configurators",
