@@ -29,6 +29,27 @@ export default {
     let scene, camera, renderer, vaseModel;
     let isRotatingClockwise = false;
     let isRotatingCounterClockwise = false;
+    let isMaterialSettingsApplied = false;
+
+    // Определение текстур
+    const textures = {
+      texture1: '/assets/img/cube3/cube3-10.webp',
+      texture2: '/assets/img/cube3/cube3-09.webp',
+      texture3: '/assets/img/cube3/cube3-27.webp',
+      texture4: '/assets/img/cube3/cube3-18.webp'
+    };
+
+    const applyMaterialSettings = (material) => {
+      if (material instanceof THREE.MeshStandardMaterial && !isMaterialSettingsApplied) {
+        material.color.multiplyScalar(3); // Увеличиваем яркость на 50%
+        material.roughness = 0.1; // Снижаем шероховатость
+        material.metalness = 0.5; // Добавляем металлический эффект
+        material.needsUpdate = true; // Обновляем материал после изменений
+        isMaterialSettingsApplied = true; // Устанавливаем флаг, чтобы изменения не применялись повторно
+      }
+    };
+
+    const textureLoader = new TextureLoader();
 
     const init = () => {
       // Создаем сцену
@@ -61,33 +82,8 @@ export default {
           vaseModel = gltf.scene;
           vaseModel.scale.set(6, 6, 6); // Настраиваем масштаб модели
 
-          // Загружаем текстуру
-          const textureLoader = new TextureLoader();
-          const vaseTexture = textureLoader.load('/assets/img/cube3/cube3-10.webp'); // Путь к текстуре
-
-          vaseModel.traverse((child) => {
-            if (child instanceof THREE.Mesh) {
-              if (Array.isArray(child.material)) {
-                // Если у объекта несколько материалов
-                child.material.forEach((material) => {
-                  if (material instanceof THREE.MeshStandardMaterial) {
-                    material.map = vaseTexture; // Применяем текстуру к материалу
-                    material.needsUpdate = true; // Обновляем материал после изменений
-                    material.color.multiplyScalar(3); // Увеличиваем яркость на 50%
-                    material.roughness = 0.1; // Снижаем шероховатость
-                    material.metalness = 0.5; // Добавляем металлический эффект
-                  }
-                });
-              } else if (child.material instanceof THREE.MeshStandardMaterial) {
-                // Если один материал
-                child.material.map = vaseTexture; // Применяем текстуру к материалу
-                child.material.needsUpdate = true; // Обновляем материал после изменений
-                child.material.color.multiplyScalar(3); // Увеличиваем яркость на 50%
-                child.material.roughness = 0.1; // Снижаем шероховатость
-                child.material.metalness = 0.5; // Добавляем металлический эффект
-              }
-            }
-          });
+          // Устанавливаем начальную текстуру
+          changeTexture('texture1');
 
           // Определяем границы модели (bounding box)
           const boundingBox = new THREE.Box3().setFromObject(vaseModel);
@@ -98,8 +94,6 @@ export default {
 
           // Добавляем модель в сцену
           sceneGroup.add(vaseModel);
-
-          // scene.add(vaseModel);
         },
         undefined,
         (error) => {
@@ -143,6 +137,28 @@ export default {
       };
 
       animate();
+    };
+
+    const changeTexture = (textureKey) => {
+      if (vaseModel) {
+        const texture = textureLoader.load(textures[textureKey], (loadedTexture) => {
+          vaseModel.traverse((child) => {
+            if (child instanceof THREE.Mesh) {
+              if (Array.isArray(child.material)) {
+                child.material.forEach((material) => {
+                  applyMaterialSettings(material); // Применяем настройки только один раз
+                  material.map = loadedTexture;
+                  material.needsUpdate = true;
+                });
+              } else if (child.material instanceof THREE.MeshStandardMaterial) {
+                applyMaterialSettings(child.material); // Применяем настройки только один раз
+                child.material.map = loadedTexture;
+                child.material.needsUpdate = true;
+              }
+            }
+          });
+        });
+      }
     };
 
     // Вращение по часовой стрелке
@@ -190,6 +206,7 @@ export default {
       rotateClockwise,
       rotateCounterClockwise,
       stopRotation,
+      changeTexture,
     };
   },
 }
@@ -210,6 +227,21 @@ export default {
       </button>
       <button @click="rotateCounterClockwise" :title="$t ('rotating.counterclockwise')">
         <i class="fas fa-arrow-rotate-left"></i>
+      </button>
+    </div>
+    <!-- Кнопки управления текстурами -->
+    <div class="texture-controls">
+      <button @click="changeTexture('texture2')" title="Texture 2">
+        <i class="fa-solid fa-mountain-city"></i>
+      </button>
+      <button @click="changeTexture('texture3')" title="Texture 3">
+        <i class="fa-brands fa-canadian-maple-leaf"></i>
+      </button>
+      <button @click="changeTexture('texture4')" title="Texture 4">
+        <i class="fa-solid fa-cloud-sun"></i>
+      </button>
+      <button @click="changeTexture('texture1')" style="background-color: #f0f0f0; color: black; border: 1px solid #ccc;" title="Сброс к исходным настройкам">
+        <i class="fas fa-reply"></i>
       </button>
     </div>
   </div>
@@ -254,6 +286,32 @@ export default {
       }
     }
   }
+  .texture-controls {
+    position: absolute;
+    left: 40px; /* Размещение кнопок слева */
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+      button {
+        width: 50px;
+        height: 50px;
+        border: 1px solid #ccc;
+        margin-bottom: 14px;
+        cursor: pointer;
+        border-radius: 5px;
+        color: white;
+        background-color: #54884d;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.2s, box-shadow 0.2s;
+        .fa-solid,.fa-brands,.fas {font-size: 24px;}
+
+        &:hover {
+          background-color: #2ddd1f;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+        }
+      }
+  }
 }
 
 @media(max-width: 1020px) {
@@ -266,6 +324,17 @@ export default {
         padding: 13px;
         margin-bottom: 10px;
         font-size: 22px;
+      }
+    }
+    .texture-controls {
+      left: 22px; /* Размещение кнопок слева */
+      top: 60%;
+
+      button {
+        width: 45px;
+        height: 45px;
+        margin-bottom: 10px;
+        .fa-solid,.fa-brands,.fas {font-size: 22px;}
       }
     }
   }
@@ -281,6 +350,17 @@ export default {
         padding: 10px;
         margin-bottom: 10px;
         font-size: 18px;
+      }
+    }
+    .texture-controls {
+      left: 20px; /* Размещение кнопок слева */
+      top: 60%;
+
+      button {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 10px;
+        .fa-solid,.fa-brands,.fas {font-size: 18px;}
       }
     }
   }
