@@ -40,6 +40,33 @@ export default {
 
     const textureLoader = new TextureLoader();
 
+    // Метод для загрузки текстуры с диска
+    const uploadTexture = (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const imageUrl = e.target.result;
+        const newTexture = textureLoader.load(imageUrl);
+
+        // Применение загруженной текстуры к модели
+        vaseModel.traverse((child) => {
+          if (child instanceof THREE.Mesh) {
+            const materials = Array.isArray(child.material) ? child.material : [child.material];
+            materials.forEach((material) => {
+              if (material instanceof THREE.MeshStandardMaterial) {
+                material.map = newTexture; // Заменяем текстуру на загруженную
+                material.needsUpdate = true; // Обновляем материал
+              }
+            });
+          }
+        });
+      };
+
+      reader.readAsDataURL(file); // Чтение файла как URL изображения
+    };
+
     const init = () => {
       // Создаем сцену
       scene = new THREE.Scene();
@@ -229,6 +256,7 @@ export default {
 
     return {
       canvasContainer,
+      uploadTexture,
       rotateClockwise,
       rotateCounterClockwise,
       stopRotation,
@@ -266,11 +294,16 @@ export default {
       <button @click="changeTexture('texture4')" class="button" title="Texture 4">
         <i class="fa-solid fa-cloud-sun"></i>
       </button>
+      <!-- Кнопка для загрузки текстуры с диска -->
+      <input type="file" @change="uploadTexture" id="file-input" class="file-input" title="Загрузить текстуру">
+      <label for="file-input" class="button upload">
+<!--        <i class="fa-solid fa-upload"></i>-->
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+      </label>
+      <!-- Кнопка сброса к первоначальным настройкам -->
       <button @click="changeTexture('texture1')" style="background-color: #f0f0f0; color: black; border: 1px solid #ccc;" class="button" :title="$t ('changeColor.reset')">
         <i class="fas fa-reply"></i>
       </button>
-<!--      &lt;!&ndash; Кнопка для загрузки текстуры с диска &ndash;&gt;-->
-<!--      <input type="file" class="button" @change="onTextureUpload" accept="image/*">-->
     </div>
   </div>
 </template>
@@ -339,6 +372,24 @@ export default {
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
         }
       }
+
+    .upload {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 14px;
+      background-color: pink;
+
+      &:hover {
+        background-color: deeppink;
+      }
+    }
+    /* Скрываем оригинальный input */
+    .file-input {
+      display: none;
+    }
   }
 }
 
