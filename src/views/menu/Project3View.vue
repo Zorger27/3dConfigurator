@@ -25,7 +25,7 @@ export default {
   setup() {
     const canvasContainer = ref(null);
     let scene, camera, renderer, horseModel;
-    let isRotatingClockwise = false;
+    let isRotatingClockwise = true;
     let isRotatingCounterClockwise = false;
     // Первоначальный цвет модели
     const initialColor = 0x87ceeb;

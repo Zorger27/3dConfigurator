@@ -29,6 +29,8 @@ export default {
     let isRotatingCounterClockwise = false;
     // Первоначальный цвет модели
     const initialColor = 0x87ceeb;
+    // const initialColor = null;
+
 
     const applyMaterialSettings = (material, color) => {
       material.color.set(color); // Устанавливаем заданный цвет
