@@ -241,15 +241,15 @@ export default {
     </div>
     <!-- Кнопки выбора цвета -->
     <div class="color-controls">
-      <button @click="changeColor(0xff0000)" title="Красный" class="color-button" style="background-color: #ff0000;"></button>
-      <button @click="changeColor(0x00ff00)" title="Зелёный" class="color-button" style="background-color: #00ff00;"></button>
-      <button @click="changeColor(0x0000ff)" title="Синий" class="color-button" style="background-color: #0000ff;"></button>
-      <button @click="changeColor(0xffffff)" title="Белый" class="color-button" style="background-color: #ffffff;"></button>
-      <button @click="changeColor(0xffd700)" title="Золотистый" class="color-button" style="background-color: #ffd700;"></button>
+      <button @click="changeColor(0xff0000)" :title="$t ('changeColor.red')" class="color-button" style="background-color: #ff0000;"></button>
+      <button @click="changeColor(0x00ff00)" :title="$t ('changeColor.green')" class="color-button" style="background-color: #00ff00;"></button>
+      <button @click="changeColor(0x0000ff)" :title="$t ('changeColor.blue')" class="color-button" style="background-color: #0000ff;"></button>
+      <button @click="changeColor(0xffffff)" :title="$t ('changeColor.white')" class="color-button" style="background-color: #ffffff;"></button>
+      <button @click="changeColor(0xffd700)" :title="$t ('changeColor.golden')" class="color-button" style="background-color: #ffd700;"></button>
       <!-- Цветовая палитра -->
-      <input type="color" @input="changeColorFromPicker" title="Выбор цвета" class="color-picker"/>
+      <input type="color" @input="changeColorFromPicker" :title="$t ('changeColor.picker')" class="color-picker"/>
       <!-- Кнопка сброса к первоначальным настройкам -->
-      <button @click="resetColor" title="Сброс к исходным настройкам" class="color-button reset-button">
+      <button @click="resetColor" :title="$t ('changeColor.reset')" class="color-button reset-button">
         <i class="fas fa-reply"></i> <!-- Иконка для сброса -->
       </button>
     </div>

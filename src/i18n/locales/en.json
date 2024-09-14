@@ -33,6 +33,15 @@
     "counterclockwise": "Rotate counterclockwise",
     "stop": "Stop rotation"
   },
+  "changeColor": {
+    "red": "Red",
+    "green": "Green",
+    "blue": "lue",
+    "white": "White",
+    "golden": "Golden",
+    "picker": "Color selection",
+    "reset": "Reset to default settings"
+  },
   "about": {
     "title": "3D Configurators",
     "more01": "More information...",

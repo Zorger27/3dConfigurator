@@ -266,7 +266,7 @@ export default {
       <button @click="changeTexture('texture4')" class="button" title="Texture 4">
         <i class="fa-solid fa-cloud-sun"></i>
       </button>
-      <button @click="changeTexture('texture1')" style="background-color: #f0f0f0; color: black; border: 1px solid #ccc;" class="button" title="Сброс к исходным настройкам">
+      <button @click="changeTexture('texture1')" style="background-color: #f0f0f0; color: black; border: 1px solid #ccc;" class="button" :title="$t ('changeColor.reset')">
         <i class="fas fa-reply"></i>
       </button>
 <!--      &lt;!&ndash; Кнопка для загрузки текстуры с диска &ndash;&gt;-->

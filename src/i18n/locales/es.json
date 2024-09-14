@@ -33,6 +33,15 @@
     "counterclockwise": "Girar en sentido antihorario",
     "stop": "Dejar de rotar"
   },
+  "changeColor": {
+    "red": "Rojo",
+    "green": "Verde",
+    "blue": "Azul",
+    "white": "Blanco",
+    "golden": "Dorado",
+    "picker": "Selección de colores",
+    "reset": "Restablecer configuración predeterminada"
+  },
   "about": {
     "title": "Configuradores 3D",
     "more01": "Más información...",
