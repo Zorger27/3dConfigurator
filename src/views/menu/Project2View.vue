@@ -29,7 +29,6 @@ export default {
     let scene, camera, renderer, vaseModel;
     let isRotatingClockwise = false;
     let isRotatingCounterClockwise = false;
-    let isMaterialSettingsApplied = false;
 
     // Определение текстур
     const textures = {
@@ -37,16 +36,6 @@ export default {
       texture2: '/assets/img/cube3/cube3-09.webp',
       texture3: '/assets/img/cube3/cube3-27.webp',
       texture4: '/assets/img/cube3/cube3-18.webp'
-    };
-
-    const applyMaterialSettings = (material) => {
-      if (material instanceof THREE.MeshStandardMaterial && !isMaterialSettingsApplied) {
-        material.color.multiplyScalar(3); // Увеличиваем яркость на 50%
-        material.roughness = 0.1; // Снижаем шероховатость
-        material.metalness = 0.5; // Добавляем металлический эффект
-        material.needsUpdate = true; // Обновляем материал после изменений
-        isMaterialSettingsApplied = true; // Устанавливаем флаг, чтобы изменения не применялись повторно
-      }
     };
 
     const textureLoader = new TextureLoader();
@@ -141,20 +130,57 @@ export default {
 
     const changeTexture = (textureKey) => {
       if (vaseModel) {
-        const texture = textureLoader.load(textures[textureKey], (loadedTexture) => {
+        textureLoader.load(textures[textureKey], (loadedTexture) => {
           vaseModel.traverse((child) => {
             if (child instanceof THREE.Mesh) {
               if (Array.isArray(child.material)) {
-                child.material.forEach((material) => {
-                  applyMaterialSettings(material); // Применяем настройки только один раз
-                  material.map = loadedTexture;
-                  material.needsUpdate = true;
+                child.material = child.material.map((material) => {
+                  // Проверяем, если яркость уже была применена
+                  const isBrightnessApplied = material.userData.isBrightnessApplied || false;
+
+                  // Клонируем цвет, чтобы изменения не затронули оригинал
+                  const newColor = material.color.clone();
+                  if (!isBrightnessApplied) {
+                    newColor.multiplyScalar(3); // Увеличиваем яркость
+                  }
+
+                  // Создаем новый материал с нужными параметрами
+                  const newMaterial = new THREE.MeshStandardMaterial({
+                    map: loadedTexture,
+                    color: newColor,
+                    roughness: 0.1,
+                    metalness: 0.5,
+                  });
+
+                  // Устанавливаем флаг, чтобы не применять яркость повторно
+                  newMaterial.userData.isBrightnessApplied = true;
+
+                  return newMaterial;
                 });
               } else if (child.material instanceof THREE.MeshStandardMaterial) {
-                applyMaterialSettings(child.material); // Применяем настройки только один раз
-                child.material.map = loadedTexture;
-                child.material.needsUpdate = true;
+                // Проверяем, если яркость уже была применена
+                const isBrightnessApplied = child.material.userData.isBrightnessApplied || false;
+
+                // Клонируем цвет, чтобы изменения не затронули оригинал
+                const newColor = child.material.color.clone();
+                if (!isBrightnessApplied) {
+                  newColor.multiplyScalar(3); // Увеличиваем яркость
+                }
+
+                // Создаем новый материал с нужными параметрами
+                const newMaterial = new THREE.MeshStandardMaterial({
+                  map: loadedTexture,
+                  color: newColor,
+                  roughness: 0.1,
+                  metalness: 0.5,
+                });
+
+                // Устанавливаем флаг, чтобы не применять яркость повторно
+                newMaterial.userData.isBrightnessApplied = true;
+
+                child.material = newMaterial;
               }
+              child.material.needsUpdate = true; // Обновляем материал
             }
           });
         });
@@ -231,18 +257,20 @@ export default {
     </div>
     <!-- Кнопки управления текстурами -->
     <div class="texture-controls">
-      <button @click="changeTexture('texture2')" title="Texture 2">
+      <button @click="changeTexture('texture2')" class="button" title="Texture 2">
         <i class="fa-solid fa-mountain-city"></i>
       </button>
-      <button @click="changeTexture('texture3')" title="Texture 3">
+      <button @click="changeTexture('texture3')" class="button" title="Texture 3">
         <i class="fa-brands fa-canadian-maple-leaf"></i>
       </button>
-      <button @click="changeTexture('texture4')" title="Texture 4">
+      <button @click="changeTexture('texture4')" class="button" title="Texture 4">
         <i class="fa-solid fa-cloud-sun"></i>
       </button>
-      <button @click="changeTexture('texture1')" style="background-color: #f0f0f0; color: black; border: 1px solid #ccc;" title="Сброс к исходным настройкам">
+      <button @click="changeTexture('texture1')" style="background-color: #f0f0f0; color: black; border: 1px solid #ccc;" class="button" title="Сброс к исходным настройкам">
         <i class="fas fa-reply"></i>
       </button>
+<!--      &lt;!&ndash; Кнопка для загрузки текстуры с диска &ndash;&gt;-->
+<!--      <input type="file" class="button" @change="onTextureUpload" accept="image/*">-->
     </div>
   </div>
 </template>
@@ -293,7 +321,7 @@ export default {
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-      button {
+      .button {
         width: 50px;
         height: 50px;
         border: 1px solid #ccc;
@@ -330,7 +358,7 @@ export default {
       left: 22px; /* Размещение кнопок слева */
       top: 60%;
 
-      button {
+      .button {
         width: 45px;
         height: 45px;
         margin-bottom: 10px;
@@ -356,7 +384,7 @@ export default {
       left: 20px; /* Размещение кнопок слева */
       top: 60%;
 
-      button {
+      .button {
         width: 40px;
         height: 40px;
         margin-bottom: 10px;
