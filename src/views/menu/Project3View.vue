@@ -306,16 +306,15 @@ export default {
     .color-button {
       width: 50px;
       height: 50px;
-      //border: none;
       border: 1px solid #ccc;
       margin-bottom: 14px;
       cursor: pointer;
-      border-radius: 5px;
+      border-radius: 50%;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       transition: background-color 0.2s, box-shadow 0.2s;
 
       &:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
       }
     }
     .color-picker {
@@ -324,14 +323,13 @@ export default {
       padding: 0;
       margin-bottom: 14px;
       cursor: pointer;
-      //border: none;
-      border: 1px solid #c048c0;
+      border: 1px solid #ccc;
       border-radius: 5px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       transition: box-shadow 0.2s;
 
       &:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
       }
     }
     .reset-button {

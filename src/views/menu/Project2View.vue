@@ -32,16 +32,17 @@ export default {
 
     // Определение текстур
     const textures = {
-      texture1: '/assets/img/cube3/cube3-09.webp',
-      texture2: '/assets/img/cube3/cube3-27.webp',
-      texture3: '/assets/img/cube3/cube3-18.webp'
+      texture1: '/assets/textures/texture1.webp',
+      texture2: '/assets/textures/texture2.webp',
+      texture3: '/assets/textures/texture3.webp',
+      texture4: '/assets/textures/texture4.webp'
     };
 
     const textureLoader = new TextureLoader();
 
     // Начальные настройки для сброса модели
     const initialSettings = {
-      texture: '/assets/img/cube3/cube3-10.webp', // Путь к начальной текстуре
+      texture: '/assets/textures/texture0.webp', // Путь к начальной текстуре
       color: new THREE.Color(0xffffff), // Используем THREE.Color для работы с цветом
       roughness: 0.1, // Начальная шероховатость
       metalness: 0.5, // Начальный металлический эффект
@@ -333,20 +334,14 @@ export default {
     </div>
     <!-- Кнопки управления текстурами -->
     <div class="texture-controls">
-      <button @click="changeTexture('texture1')" class="button" :title="$t('texture.texture1')">
-        <i class="fa-solid fa-mountain-city"></i>
-      </button>
-      <button @click="changeTexture('texture2')" class="button" :title="$t('texture.texture2')">
-        <i class="fa-brands fa-canadian-maple-leaf"></i>
-      </button>
-      <button @click="changeTexture('texture3')" class="button" :title="$t('texture.texture3')">
-        <i class="fa-solid fa-cloud-sun"></i>
-      </button>
+      <img src="/assets/textures/texture1.webp" alt="texture1" @click="changeTexture('texture1')" class="button" :title="$t('texture.texture1')">
+      <img src="/assets/textures/texture2.webp" alt="texture2" @click="changeTexture('texture2')" class="button" :title="$t('texture.texture2')">
+      <img src="/assets/textures/texture3.webp" alt="texture3" @click="changeTexture('texture3')" class="button" :title="$t('texture.texture3')">
+      <img src="/assets/textures/texture4.webp" alt="texture4" @click="changeTexture('texture4')" class="button" :title="$t('texture.texture4')">
       <!-- Кнопка для загрузки текстуры с диска -->
       <input type="file" @change="uploadTexture" id="file-input" class="file-input">
       <label for="file-input" class="button upload" :title="$t('texture.upload')">
         <i class="fa-solid fa-upload"></i>
-<!--        <i class="fa-solid fa-cloud-arrow-up"></i>-->
       </label>
       <!-- Кнопка сброса к первоначальным настройкам -->
       <button @click="resetModelSettings" class="button reset" :title="$t('changeColor.reset')">
@@ -405,18 +400,14 @@ export default {
       .button {
         width: 50px;
         height: 50px;
-        border: 1px solid #ccc;
         margin-bottom: 14px;
         cursor: pointer;
         border-radius: 5px;
-        color: white;
-        background-color: #54884d;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         transition: background-color 0.2s, box-shadow 0.2s;
         .fa-solid,.fa-brands,.fas {font-size: 24px;}
 
         &:hover {
-          background-color: #2ddd1f;
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
         }
       }
@@ -429,6 +420,7 @@ export default {
       align-items: center;
       margin-bottom: 14px;
       background-color: pink;
+      border: 1px solid #ccc;
 
       &:hover {
         background-color: deeppink;
