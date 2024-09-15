@@ -210,10 +210,20 @@ export default {
       changeColor(new THREE.Color(color)); // Преобразуем цвет из hex
     };
 
-    // Функция сброса настроек модели
+    // Функция сброса настроек модели (текстура и цвет)
     const resetModelSettings = () => {
-      // changeTexture('texture1'); // Возвращаем начальную текстуру
-      changeColor(initialSettings);
+      textureLoader.load(initialSettings.texture, (loadedTexture) => {
+        model.traverse((child) => {
+          if (child instanceof THREE.Mesh) {
+            const materials = Array.isArray(child.material) ? child.material : [child.material];
+            materials.forEach((material) => {
+              if (material instanceof THREE.MeshStandardMaterial) {
+                applyMaterialSettings(material, initialSettings.color, loadedTexture); // Сброс текстуры и цвета
+              }
+            });
+          }
+        });
+      });
     };
 
     // Вращение по часовой стрелке
@@ -344,12 +354,12 @@ export default {
       font-size: 24px;
       border-radius: 5px;
       background-color: #87ceeb;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
       transition: ease-in-out, background-color .2s, box-shadow .2s;
 
       &:hover {
         background-color: #00bfff; /* Более яркий цвет при наведении */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
     }
   }
@@ -370,10 +380,10 @@ export default {
         margin-bottom: 14px;
         cursor: pointer;
         border-radius: 50%;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
         transition: background-color 0.2s, box-shadow 0.2s;
 
-        &:hover {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);}
+        &:hover {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);}
       }
       .color-picker {
         padding: 0;
@@ -397,11 +407,23 @@ export default {
         margin-bottom: 14px;
         cursor: pointer;
         border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
         transition: background-color 0.2s, box-shadow 0.2s;
-        .fa-solid,.fa-brands,.fas {font-size: 24px;}
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden; /* Скрываем части изображения, выходящие за границы контейнера */
 
-        &:hover {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);}
+        .fa-solid, .fa-brands, .fas { font-size: 24px; }
+
+        &:hover { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+
+        img {
+          width: 100%; /* Ширина изображения соответствует ширине контейнера */
+          height: 100%; /* Высота изображения соответствует высоте контейнера */
+          object-fit: cover; /* Сохраняет пропорции изображения и заполняет контейнер */
+          display: block; /* Убирает нижний отступ у изображений */
+        }
       }
 
       .upload {

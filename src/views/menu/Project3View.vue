@@ -284,12 +284,13 @@ export default {
       font-size: 24px;
       border-radius: 5px;
       background-color: #87ceeb;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      //box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
       transition: ease-in-out, background-color .2s, box-shadow .2s;
 
       &:hover {
         background-color: #00bfff; /* Более яркий цвет при наведении */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
     }
   }
@@ -308,10 +309,10 @@ export default {
       margin-bottom: 14px;
       cursor: pointer;
       border-radius: 50%;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
       transition: background-color 0.2s, box-shadow 0.2s;
 
-      &:hover {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);}
+      &:hover {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);}
     }
     .color-picker {
       width: 50px;
@@ -321,10 +322,10 @@ export default {
       cursor: pointer;
       border: 1px solid #ccc;
       border-radius: 5px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
       transition: box-shadow 0.2s;
 
-      &:hover {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);}
+      &:hover {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);}
     }
     .reset-button {
       background-color: #f0f0f0;

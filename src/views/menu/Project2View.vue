@@ -35,7 +35,8 @@ export default {
       texture1: '/assets/textures/texture1.webp',
       texture2: '/assets/textures/texture2.webp',
       texture3: '/assets/textures/texture3.webp',
-      texture4: '/assets/textures/texture4.webp'
+      texture4: '/assets/textures/texture4.webp',
+      texture5: '/assets/textures/texture5.webp'
     };
 
     const textureLoader = new TextureLoader();
@@ -337,6 +338,7 @@ export default {
       <img src="/assets/textures/texture2.webp" alt="texture2" @click="changeTexture('texture2')" class="button" :title="$t('texture.texture2')">
       <img src="/assets/textures/texture3.webp" alt="texture3" @click="changeTexture('texture3')" class="button" :title="$t('texture.texture3')">
       <img src="/assets/textures/texture4.webp" alt="texture4" @click="changeTexture('texture4')" class="button" :title="$t('texture.texture4')">
+      <img src="/assets/textures/texture5.webp" alt="texture5" @click="changeTexture('texture5')" class="button" :title="$t('texture.texture5')">
       <!-- Кнопка для загрузки текстуры с диска -->
       <input type="file" @change="uploadTexture" id="file-input" class="file-input">
       <label for="file-input" class="button upload" :title="$t('texture.upload')">
@@ -380,12 +382,12 @@ export default {
       font-size: 24px;
       border-radius: 5px;
       background-color: #87ceeb;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
       transition: ease-in-out, background-color .2s, box-shadow .2s;
 
       &:hover {
         background-color: #00bfff; /* Более яркий цвет при наведении */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
     }
   }
@@ -396,18 +398,30 @@ export default {
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-      .button {
-        width: 50px;
-        height: 50px;
-        margin-bottom: 14px;
-        cursor: pointer;
-        border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: background-color 0.2s, box-shadow 0.2s;
-        .fa-solid,.fa-brands,.fas {font-size: 24px;}
+    .button {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 14px;
+      cursor: pointer;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+      transition: background-color 0.2s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden; /* Скрываем части изображения, выходящие за границы контейнера */
 
-        &:hover {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);}
+      .fa-solid, .fa-brands, .fas { font-size: 24px; }
+
+      &:hover { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+
+      img {
+        width: 100%; /* Ширина изображения соответствует ширине контейнера */
+        height: 100%; /* Высота изображения соответствует высоте контейнера */
+        object-fit: cover; /* Сохраняет пропорции изображения и заполняет контейнер */
+        display: block; /* Убирает нижний отступ у изображений */
       }
+    }
 
     .upload {
       width: 50px;
