@@ -47,9 +47,7 @@ export default {
       camera.position.z = 3;
 
       // Создаем рендерер
-      // renderer = new THREE.WebGLRenderer();
       renderer = new THREE.WebGLRenderer({ alpha: true });
-      // renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setSize(window.innerWidth, window.innerHeight);
 
       const controls = new OrbitControls(camera, renderer.domElement);
@@ -313,9 +311,7 @@ export default {
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       transition: background-color 0.2s, box-shadow 0.2s;
 
-      &:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
-      }
+      &:hover {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);}
     }
     .color-picker {
       width: 50px;
@@ -328,17 +324,13 @@ export default {
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       transition: box-shadow 0.2s;
 
-      &:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
-      }
+      &:hover {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);}
     }
     .reset-button {
       background-color: #f0f0f0;
       border: 1px solid #ccc;
 
-      &:hover {
-        background-color: #e0e0e0;
-      }
+      &:hover {background-color: #e0e0e0;}
       .fas {font-size: 24px;}
     }
   }

@@ -115,7 +115,6 @@ export default {
       camera.position.z = 3;
 
       // Создаем рендерер
-      // renderer = new THREE.WebGLRenderer();
       renderer = new THREE.WebGLRenderer({ alpha: true });
       renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -407,9 +406,7 @@ export default {
         transition: background-color 0.2s, box-shadow 0.2s;
         .fa-solid,.fa-brands,.fas {font-size: 24px;}
 
-        &:hover {
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
-        }
+        &:hover {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);}
       }
 
     .upload {
@@ -422,9 +419,7 @@ export default {
       background-color: pink;
       border: 1px solid #ccc;
 
-      &:hover {
-        background-color: deeppink;
-      }
+      &:hover {background-color: deeppink;}
     }
 
     .reset {
@@ -432,15 +427,11 @@ export default {
       background-color: #f0f0f0;
       border: 1px solid #ccc;
 
-      &:hover {
-        background-color: #e0e0e0;
-      }
+      &:hover {background-color: #e0e0e0;}
     }
 
     /* Скрываем оригинальный input */
-    .file-input {
-      display: none;
-    }
+    .file-input {display: none;}
   }
 }
 
