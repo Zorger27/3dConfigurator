@@ -239,11 +239,11 @@ export default {
     </div>
     <!-- Кнопки выбора цвета -->
     <div class="color-controls">
-      <button @click="changeColor(0xff0000)" :title="$t ('changeColor.red')" class="color-button" style="background-color: #ff0000;"></button>
-      <button @click="changeColor(0x00ff00)" :title="$t ('changeColor.green')" class="color-button" style="background-color: #00ff00;"></button>
-      <button @click="changeColor(0x0000ff)" :title="$t ('changeColor.blue')" class="color-button" style="background-color: #0000ff;"></button>
+      <button @click="changeColor(0xfbc6c6)" :title="$t ('changeColor.red')" class="color-button" style="background-color: #fbc6c6;"></button>
+      <button @click="changeColor(0xc6fbc6)" :title="$t ('changeColor.green')" class="color-button" style="background-color: #c6fbc6;"></button>
+      <button @click="changeColor(0xd0d0fb)" :title="$t ('changeColor.blue')" class="color-button" style="background-color: #d0d0fb;"></button>
       <button @click="changeColor(0xffffff)" :title="$t ('changeColor.white')" class="color-button" style="background-color: #ffffff;"></button>
-      <button @click="changeColor(0xffd700)" :title="$t ('changeColor.golden')" class="color-button" style="background-color: #ffd700;"></button>
+      <button @click="changeColor(0xfaeeb2)" :title="$t ('changeColor.golden')" class="color-button" style="background-color: #faeeb2;"></button>
       <!-- Цветовая палитра -->
       <input type="color" @input="changeColorFromPicker" :title="$t ('changeColor.picker')" class="color-picker"/>
       <!-- Кнопка сброса к первоначальным настройкам -->

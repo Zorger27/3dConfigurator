@@ -332,8 +332,8 @@ export default {
     <div class="model-controls">
       <!-- Кнопки выбора цвета -->
       <div class="color-controls">
-        <button @click="changeColor(0xff0000)" :title="$t ('changeColor.red')" class="color-button" style="background-color: #ff0000;"></button>
-        <button @click="changeColor(0x0000ff)" :title="$t ('changeColor.blue')" class="color-button" style="background-color: #0000ff;"></button>
+        <button @click="changeColor(0xc6fbc6)" :title="$t ('changeColor.green')" class="color-button" style="background-color: #c6fbc6;"></button>
+        <button @click="changeColor(0xfaeeb2)" :title="$t ('changeColor.golden')" class="color-button" style="background-color: #faeeb2;"></button>
         <input type="color" @input="changeColorFromPicker" :title="$t ('changeColor.picker')" class="color-button color-picker"/>
       </div>
       <!-- Кнопки управления текстурами -->
