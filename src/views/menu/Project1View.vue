@@ -58,10 +58,9 @@ export default {
 
       // Применяем яркость только если она еще не была применена
       if (!material.userData.isBrightnessApplied) {
-        material.color.multiplyScalar(3); // Увеличиваем яркость только один раз
+        material.color.multiplyScalar(4.5); // Увеличиваем яркость только один раз
         material.userData.isBrightnessApplied = true; // Помечаем, что яркость уже применялась
       }
-      // material.color.multiplyScalar(3); // Увеличиваем яркость
       material.roughness = initialSettings.roughness;
       material.metalness = initialSettings.metalness;
       material.needsUpdate = true;
@@ -242,7 +241,6 @@ export default {
               if (material instanceof THREE.MeshStandardMaterial) {
                 material.userData.isBrightnessApplied = false;
                 applyMaterialSettings(material, initialSettings.color, loadedTexture); // Сброс текстуры и цвета
-                // changeColor(initialSettings.color);
               }
             });
           }
