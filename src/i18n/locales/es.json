@@ -31,7 +31,9 @@
   "rotating": {
     "clockwise": "Girar en sentido horario",
     "counterclockwise": "Girar en sentido antihorario",
-    "stop": "Dejar de rotar"
+    "stop": "Dejar de rotar",
+    "mixNo": "No está permitido mezclar textura con color",
+    "mixYes": "Se permite mezclar textura con color"
   },
   "changeColor": {
     "red": "Rojo",

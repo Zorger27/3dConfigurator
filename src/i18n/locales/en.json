@@ -31,7 +31,9 @@
   "rotating": {
     "clockwise": "Rotate clockwise",
     "counterclockwise": "Rotate counterclockwise",
-    "stop": "Stop rotation"
+    "stop": "Stop rotation",
+    "mixNo": "It is not allowed to mix texture with color",
+    "mixYes": "It is allowed to mix texture with color"
   },
   "changeColor": {
     "red": "Red",

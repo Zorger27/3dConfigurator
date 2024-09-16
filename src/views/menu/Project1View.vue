@@ -29,6 +29,9 @@ export default {
     let isRotatingClockwise = true;
     let isRotatingCounterClockwise = false;
 
+    // Флаг для смешивания текстур и цветов
+    const isMixingEnabled = ref(false);
+
 // Определение текстур
     const textures = {
       texture1: '/assets/textures/texture3.webp',
@@ -52,7 +55,13 @@ export default {
       } else {
         material.map = null; // Если текстура не передана, убираем её, оставляем только цвет
       }
-      material.color.multiplyScalar(3); // Увеличиваем яркость
+
+      // Применяем яркость только если она еще не была применена
+      if (!material.userData.isBrightnessApplied) {
+        material.color.multiplyScalar(3); // Увеличиваем яркость только один раз
+        material.userData.isBrightnessApplied = true; // Помечаем, что яркость уже применялась
+      }
+      // material.color.multiplyScalar(3); // Увеличиваем яркость
       material.roughness = initialSettings.roughness;
       material.metalness = initialSettings.metalness;
       material.needsUpdate = true;
@@ -98,6 +107,8 @@ export default {
                 const materials = Array.isArray(child.material) ? child.material : [child.material];
                 materials.forEach((material) => {
                   if (material instanceof THREE.MeshStandardMaterial) {
+                    // Сбрасываем яркость при первой загрузке
+                    material.userData.isBrightnessApplied = false;
                     applyMaterialSettings(material, initialSettings.color, loadedTexture);
                   }
                 });
@@ -153,7 +164,8 @@ export default {
             const materials = Array.isArray(child.material) ? child.material : [child.material];
             materials.forEach((material) => {
               if (material instanceof THREE.MeshStandardMaterial) {
-                applyMaterialSettings(material, color, null); // Применяем только цвет, без текстуры
+                material.userData.isBrightnessApplied = false;
+                applyMaterialSettings(material, color, isMixingEnabled.value ? material.map : null); // Применяем цвет, в зависимости от флага смешивания
               }
             });
           }
@@ -170,13 +182,22 @@ export default {
               const materials = Array.isArray(child.material) ? child.material : [child.material];
               materials.forEach((material) => {
                 if (material instanceof THREE.MeshStandardMaterial) {
-                  applyMaterialSettings(material, initialSettings.color, loadedTexture); // Применяем текстуру и цвет
+                  if (!isMixingEnabled.value){
+                    material.userData.isBrightnessApplied = false;
+                  }
+                  // Применяем текстуру и увеличиваем яркость, если это нужно
+                  applyMaterialSettings(material, isMixingEnabled.value ? material.color : initialSettings.color, loadedTexture);
                 }
               });
             }
           });
         });
       }
+    };
+
+    // Функция для изменения состояния смешивания
+    const toggleMixing = () => {
+      isMixingEnabled.value = !isMixingEnabled.value;
     };
 
     // Функция для загрузки текстуры с диска
@@ -194,7 +215,8 @@ export default {
             const materials = Array.isArray(child.material) ? child.material : [child.material];
             materials.forEach((material) => {
               if (material instanceof THREE.MeshStandardMaterial) {
-                applyMaterialSettings(material, initialSettings.color, newTexture);
+                // Убедимся, что яркость применяется правильно при загрузке текстуры с диска
+                applyMaterialSettings(material, material.color, newTexture);
               }
             });
           }
@@ -218,7 +240,9 @@ export default {
             const materials = Array.isArray(child.material) ? child.material : [child.material];
             materials.forEach((material) => {
               if (material instanceof THREE.MeshStandardMaterial) {
+                material.userData.isBrightnessApplied = false;
                 applyMaterialSettings(material, initialSettings.color, loadedTexture); // Сброс текстуры и цвета
+                // changeColor(initialSettings.color);
               }
             });
           }
@@ -272,6 +296,8 @@ export default {
       changeColor,
       changeColorFromPicker,
       changeTexture,
+      toggleMixing, // Возвращаем функцию для переключения смешивания
+      isMixingEnabled, // Возвращаем состояние смешивания
       resetModelSettings,
       rotateClockwise,
       rotateCounterClockwise,
@@ -297,6 +323,13 @@ export default {
       <button @click="rotateCounterClockwise" :title="$t ('rotating.counterclockwise')">
         <i class="fas fa-arrow-rotate-left"></i>
       </button>
+
+      <!-- Кнопка для включения/отключения смешивания -->
+<!--      <button @click="toggleMixing" :title="isMixingEnabled ? $t('rotating.mixYes') : $t('rotating.mixNo')" style="margin-top: 10px;" :class="{'active': isMixingEnabled}">-->
+      <button @click="toggleMixing" :title="isMixingEnabled ? $t('rotating.mixYes') : $t('rotating.mixNo')" style="margin-top: 10px; background-color: palevioletred;">
+        <i :class="isMixingEnabled ? 'fas fa-sliders-h' : 'fas fa-gem'"></i>
+      </button>
+
     </div>
     <div class="model-controls">
       <!-- Кнопки выбора цвета -->
@@ -362,6 +395,17 @@ export default {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
     }
+    //.active {
+    //  background-color: darkgreen;
+    //  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+    //  transition: ease-in-out, background-color .2s, box-shadow .2s;
+    //
+    //  &:hover {
+    //    background-color: mediumseagreen;
+    //    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    //    i {color: lightgoldenrodyellow;}
+    //  }
+    //}
   }
   .model-controls {
     position: absolute;
