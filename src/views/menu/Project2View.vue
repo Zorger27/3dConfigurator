@@ -13,10 +13,10 @@ export default {
   mixins: [openGraphMixin],
   components: {CanvasFullScreen, ToggleFullScreen},
   mounted() {
-    const mainTitle = '3D Configurators - Project № 2';
-    const title = '3D Configurators - Project № 2';
+    const mainTitle = '3D Configurators - Texture configurator';
+    const title = '3D Configurators - Texture configurator';
     const metaDescription = '3D Configurators';
-    const description = '3D Configurators - Project № 2';
+    const description = '3D Configurators - Texture configurator';
     const imageUrl = 'https://3d-configurator-max.vercel.app/assets/ogimage/bmp/project2.jpg';
     const url = 'https://3d-configurator-max.vercel.app/project2';
 
