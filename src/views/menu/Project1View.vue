@@ -324,7 +324,7 @@ export default {
 
       <!-- Кнопка для включения/отключения смешивания -->
 <!--      <button @click="toggleMixing" :title="isMixingEnabled ? $t('rotating.mixYes') : $t('rotating.mixNo')" style="margin-top: 10px;" :class="{'active': isMixingEnabled}">-->
-      <button @click="toggleMixing" :title="isMixingEnabled ? $t('rotating.mixYes') : $t('rotating.mixNo')" style="margin-top: 10px; background-color: palevioletred;">
+      <button @click="toggleMixing" :title="isMixingEnabled ? $t('rotating.mixYes') : $t('rotating.mixNo')" class="mixing" :class="{'active': isMixingEnabled}">
         <i :class="isMixingEnabled ? 'fas fa-sliders-h' : 'fas fa-gem'"></i>
       </button>
 
@@ -393,17 +393,27 @@ export default {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
     }
-    //.active {
-    //  background-color: darkgreen;
-    //  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
-    //  transition: ease-in-out, background-color .2s, box-shadow .2s;
-    //
-    //  &:hover {
-    //    background-color: mediumseagreen;
-    //    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    //    i {color: lightgoldenrodyellow;}
-    //  }
-    //}
+    .mixing {
+      margin-top: 10px;
+      background-color: palevioletred;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+      transition: ease-in-out, background-color .2s, box-shadow .2s;
+      &:hover {
+        background-color: mediumvioletred;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    .active {
+      background-color: darkgreen;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+      transition: ease-in-out, background-color .2s, box-shadow .2s;
+      &:hover {
+        background-color: mediumseagreen;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        //i {color: lightgoldenrodyellow;}
+      }
+    }
   }
   .model-controls {
     position: absolute;
@@ -471,14 +481,18 @@ export default {
       .upload {
         width: 50px;
         height: 50px;
+        color: white;
         display: flex;
         justify-content: center;
         align-items: center;
         margin-bottom: 14px;
-        background-color: pink;
-        border: 1px solid #ccc;
-
-        &:hover {background-color: deeppink;}
+        background-color: palevioletred;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+        transition: ease-in-out, background-color .2s, box-shadow .2s;
+        &:hover {
+          background-color: mediumvioletred;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
       }
 
       .reset {

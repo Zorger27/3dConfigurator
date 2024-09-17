@@ -426,14 +426,18 @@ export default {
     .upload {
       width: 50px;
       height: 50px;
+      color: white;
       display: flex;
       justify-content: center;
       align-items: center;
       margin-bottom: 14px;
-      background-color: pink;
-      border: 1px solid #ccc;
-
-      &:hover {background-color: deeppink;}
+      background-color: palevioletred;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+      transition: ease-in-out, background-color .2s, box-shadow .2s;
+      &:hover {
+        background-color: mediumvioletred;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
     }
 
     .reset {
