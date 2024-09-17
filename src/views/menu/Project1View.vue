@@ -410,7 +410,7 @@ export default {
       &:hover {
         background-color: mediumseagreen;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        //i {color: lightgoldenrodyellow;}
+        i {transform: rotate(180deg); } /* При активном состоянии иконка может анимированно поворачиваться */
       }
     }
   }
