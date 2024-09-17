@@ -74,8 +74,8 @@ module.exports = {
         base: 'https://3d-configurator-max.vercel.app', // Базовый URL моего сайта
         paths: [
           { path: '/', priority: 1, changefreq: 'always' },
-          { path: '/project2', priority: 1, changefreq: 'daily' },
-          { path: '/project3', priority: 1, changefreq: 'daily' },
+          { path: '/project2', priority: 1, changefreq: 'always' },
+          { path: '/project3', priority: 1, changefreq: 'always' },
           { path: '/about', priority: 1, changefreq: 'always' },
         ],
         options: {
