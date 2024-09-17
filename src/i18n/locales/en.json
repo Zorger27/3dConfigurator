@@ -42,7 +42,7 @@
     "white": "White",
     "golden": "Golden",
     "picker": "Color selection",
-    "reset": "Reset to default settings"
+    "reset": "Return to initial color"
   },
   "texture": {
     "texture1": "Loading texture #1",
@@ -50,7 +50,8 @@
     "texture3": "Loading texture #3",
     "texture4": "Loading texture #4",
     "texture5": "Loading texture #5",
-    "upload": "Load texture..."
+    "upload": "Load texture...",
+    "reset": "Return to the initial texture"
   },
   "about": {
     "title": "3D Configurators",

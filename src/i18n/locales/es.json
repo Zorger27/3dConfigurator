@@ -42,7 +42,7 @@
     "white": "Blanco",
     "golden": "Dorado",
     "picker": "Selección de colores",
-    "reset": "Restablecer configuración predeterminada"
+    "reset": "Volver al color inicial"
   },
   "texture": {
     "texture1": "Cargando textura #1",
@@ -50,7 +50,8 @@
     "texture3": "Cargando textura #3",
     "texture4": "Cargando textura #4",
     "texture5": "Cargando textura #5",
-    "upload": "Cargar textura..."
+    "upload": "Cargar textura...",
+    "reset": "Volver a la textura inicial"
   },
   "about": {
     "title": "Configuradores 3D",

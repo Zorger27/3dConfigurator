@@ -346,7 +346,7 @@ export default {
           <i class="fa-solid fa-upload"></i>
         </label>
         <!-- Кнопка сброса -->
-        <button @click="resetModelSettings" class="button reset" :title="$t('changeColor.reset')">
+        <button @click="resetModelSettings" class="button reset" :title="$t('texture.reset')">
           <i class="fas fa-reply"></i>
         </button>
       </div>
