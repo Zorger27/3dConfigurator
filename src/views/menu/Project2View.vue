@@ -92,7 +92,7 @@ export default {
 
                 // Применяем начальный цвет с увеличением яркости
                 const brightenedColor = initialSettings.color.clone();
-                brightenedColor.multiplyScalar(3); // Увеличиваем яркость цвета в 4 раза
+                brightenedColor.multiplyScalar(4); // Увеличиваем яркость цвета в 4 раза
 
                 // Устанавливаем начальный цвет, шероховатость и металлический эффект
                 material.color = brightenedColor;
@@ -145,7 +145,7 @@ export default {
                     if (material instanceof THREE.MeshStandardMaterial) {
                       // Увеличиваем яркость цвета
                       const brightenedColor = initialSettings.color.clone();
-                      brightenedColor.multiplyScalar(3); // Увеличиваем яркость цвета в 4 раза
+                      brightenedColor.multiplyScalar(4); // Увеличиваем яркость цвета в 4 раза
 
                       // Применяем начальные настройки
                       material.map = loadedTexture; // Устанавливаем текстуру

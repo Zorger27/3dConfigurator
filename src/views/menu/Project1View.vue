@@ -323,7 +323,6 @@ export default {
       </button>
 
       <!-- Кнопка для включения/отключения смешивания -->
-<!--      <button @click="toggleMixing" :title="isMixingEnabled ? $t('rotating.mixYes') : $t('rotating.mixNo')" style="margin-top: 10px;" :class="{'active': isMixingEnabled}">-->
       <button @click="toggleMixing" :title="isMixingEnabled ? $t('rotating.mixYes') : $t('rotating.mixNo')" class="mixing" :class="{'active': isMixingEnabled}">
         <i :class="isMixingEnabled ? 'fas fa-sliders-h' : 'fas fa-gem'"></i>
       </button>
