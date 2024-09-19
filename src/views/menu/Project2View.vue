@@ -13,7 +13,7 @@ export default {
   mixins: [openGraphMixin],
   components: {CanvasFullScreen, ToggleFullScreen},
   mounted() {
-    const mainTitle = '3D Configurators - Texture configurator';
+    const mainTitle = 'Texture configurator';
     const title = '3D Configurators - Texture configurator';
     const metaDescription = '3D Configurators';
     const description = '3D Configurators - Texture configurator';

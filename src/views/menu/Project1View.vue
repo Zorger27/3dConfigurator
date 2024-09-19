@@ -13,7 +13,7 @@ export default {
   mixins: [openGraphMixin],
   components: {CanvasFullScreen, ToggleFullScreen},
   mounted() {
-    const mainTitle = '3D Configurators - Multi Configurator';
+    const mainTitle = 'Multi Configurator';
     const title = '3D Configurators - Multi Configurator';
     const metaDescription = '3D Configurators';
     const description = '3D Configurators - Multi Configurator';

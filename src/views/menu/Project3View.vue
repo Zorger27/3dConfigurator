@@ -12,7 +12,7 @@ export default {
   mixins: [openGraphMixin],
   components: {ToggleFullScreen, CanvasFullScreen},
   mounted() {
-    const mainTitle = '3D Configurators - Color configurator';
+    const mainTitle = 'Color configurator';
     const title = '3D Configurators - Color configurator';
     const metaDescription = '3D Configurators';
     const description = '3D Configurators - Color configurator';
