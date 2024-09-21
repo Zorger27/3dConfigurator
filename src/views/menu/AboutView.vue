@@ -17,7 +17,7 @@ export default {
     };
   },
   mounted() {
-    const mainTitle = 'About Configurators';
+    const mainTitle = 'About this project';
     const title = 'About these 3D Configurators';
     const metaDescription = '3D Configurators';
     const description = 'About these 3D Configurators';
