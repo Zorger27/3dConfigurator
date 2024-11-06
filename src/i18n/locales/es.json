@@ -56,9 +56,9 @@
   "about": {
     "title": "Configuradores 3D",
     "more01": "Más información...",
-    "more02": "Esta aplicación web permite al usuario modificar de forma interactiva el modelo que desee. Los cambios se realizan en modo 3D. ",
-    "more03": "El usuario puede examinar este modelo con mucho cuidado desde diferentes ángulos: acercarse a él, alejarse de él, girarlo en diferentes direcciones.",
-    "more04": "¡Hay MUCHAS cosas interesantes aquí! \uD83D\uDE09\uD83E\uDD13",
+    "more02": "Un configurador 3D es una tecnología en línea innovadora que permite a los usuarios interactuar con modelos de productos en 3D en tiempo real. Es una herramienta poderosa para empresas que permite a los clientes personalizar productos según sus preferencias: cambiar colores, texturas y otros parámetros, y ver los resultados al instante.",
+    "more03": "Aquí hay varios tipos de configuradores 3D:\n– Configurador de Color: Selección y cambio de color de un objeto.\n– Configurador de Textura: Elección y ajuste de la textura para un objeto.\n– Multiconfigurador: Modificación simultánea de color y textura para una personalización completa.",
+    "more04": "El proyecto está desarrollado con el framework Vue.js y utiliza Three.js, una de las bibliotecas más potentes para gráficos 3D en la web. Esto asegura un alto rendimiento y una interfaz fácil de usar.",
     "more05": "¡Bienvenido! \uD83E\uDD29\uD83D\uDE0E",
     "technologies": "Tecnologías",
     "name": "Nombre",
