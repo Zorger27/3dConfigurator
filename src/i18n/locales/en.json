@@ -56,7 +56,7 @@
   "about": {
     "title": "3D Configurators",
     "more01": "More information...",
-    "more02": "A 3D configurator is an innovative online technology that enables users to interact with 3D product models in real-time. It’s a powerful tool for businesses that allows your customers to customize products to their preferences—changing colors, textures, and other parameters and seeing the results instantly.",
+    "more02": "A 3D configurator is an innovative online technology that enables users to interact with 3D product models in real-time. It’s a powerful tool for businesses that allows your customers to customize products to their preferences — changing colors, textures, and other parameters and seeing the results instantly.",
     "more03": "Here are several types of 3D configurators: color configurator (select and change the color of an object), texture configurator (choose and adjust the texture for an object) and multi-configurator (simultaneously modify color and texture for complete personalization).",
     "more04": "The project is built on the Vue.js framework and utilizes Three.js — one of the most powerful libraries for 3D graphics on the web. This ensures high performance and a user-friendly interface.",
     "more05": "Welcome! \uD83E\uDD29\uD83D\uDE0E",
