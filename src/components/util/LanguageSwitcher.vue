@@ -1,7 +1,11 @@
 <template>
   <select v-model="locale" @change="savelocale(locale)">
-    <option v-for="sLocale in availableLocales" :key="`locale.${sLocale}`" :value="sLocale"
-            :selected="locale === sLocale">
+    <option
+      v-for="sLocale in availableLocales"
+      :key="`locale.${sLocale}`"
+      :value="sLocale"
+      :selected="locale === sLocale"
+    >
       {{ t(`locale.${sLocale}`) }}
     </option>
   </select>

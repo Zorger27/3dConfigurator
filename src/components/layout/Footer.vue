@@ -26,12 +26,14 @@ export default {
     <p class="footer-text">{{ $t('footer.text1') }}
       <b><a href="https://zorger27.github.io" title="CV (Landing Page)" target="_blank">{{ $t('footer.text2') }}
       </a></b>{{ $t('footer.text3') }}
-      <b>&copy; {{ currentYear }}</b> - {{ $t('footer.text4') }}
+<!--      <b>&copy; {{ currentYear }}</b> - {{ $t('footer.text4') }}-->
+      <b>&copy; 2024―{{ currentYear }}</b> - {{ $t('footer.text4') }}
     </p>
     <p class="footer-text-mob">{{ $t('footer.text1') }}
       <b><a href="https://zorger27.github.io" title="CV (Landing Page)" target="_blank">{{ $t('footer.text2') }}
       </a></b>{{ $t('footer.text3') }}<br>
-      <b>&copy; {{ currentYear }}</b> - {{ $t('footer.text4') }}
+<!--      <b>&copy; {{ currentYear }}</b> - {{ $t('footer.text4') }}-->
+      <span class="copyright"><b>&copy; 2024―{{ currentYear }}</b> - {{ $t('footer.text4') }}</span>
     </p>
     <SocialSharing></SocialSharing>
   </footer>
@@ -90,6 +92,7 @@ footer {
       font-size: 0.8rem;
       font-style: italic;
       color: saddlebrown;
+      .copyright {font-size: 0.65rem;}
     }
   }
 }
