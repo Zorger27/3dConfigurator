@@ -52,7 +52,7 @@ export default {
 }
 .is-prog-year-equal {
   @media (max-width: 768px) {
-    font-size: 0.85rem; /* Изменяем стиль при равных годах */
+    font-size: 0.83rem; /* Изменяем стиль при равных годах */
     margin-top: 0.2rem;
   }
 }
