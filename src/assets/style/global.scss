@@ -1,15 +1,22 @@
-#app {
+body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   background-color: white;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
   font-size: 18px;
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
 }
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 line{
   content:'';
   display:block;

@@ -49,6 +49,7 @@ footer {
     radial-gradient(at 50% 50%, hsla(355,100%, 93%, 1) 0px, transparent 50%),
     radial-gradient(at 79% 100%, hsla(242, 100%, 70%, 1) 0px, transparent 50%),
     radial-gradient(at 0% 0%, hsla(343,100%, 76%, 1) 0px, transparent 50%);
+  box-shadow: 0 -2px 4px grey;
 
   .footer-logo {
     margin: 0.3rem;
