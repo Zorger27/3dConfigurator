@@ -27,10 +27,22 @@ line{
 table {border-collapse: collapse;}
 
 .fa, .fas {cursor: pointer;}
-.fa.fa-th {color: deepskyblue; margin-right: 0.5rem;}
-.fa.fa-list {color: darkgoldenrod; margin-right: 0.5rem;}
 .fas.fa-arrow-alt-circle-down {color: mediumvioletred;}
 .fas.fa-arrow-alt-circle-up {color: lightseagreen;}
+
+.fa.fa-th {
+  transition: text-shadow .3s ease-in-out;
+  color: deepskyblue;
+  margin-right: 0.5rem;
+  &:hover {text-shadow: 2px 2px 4px black;}
+}
+
+.fa.fa-list {
+  transition: text-shadow .3s ease-in-out;
+  color: darkgoldenrod;
+  margin-right: 0.5rem;
+  &:hover {text-shadow: 2px 2px 4px black;}
+}
 
 @media(max-width:1020px) {
   line {width: 100%;}
