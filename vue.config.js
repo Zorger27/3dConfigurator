@@ -78,10 +78,10 @@ module.exports = {
       new SitemapPlugin({
         base: 'https://3d-configurator-max.vercel.app', // Базовый URL моего сайта
         paths: [
-          { path: '/', priority: 1, changefreq: 'always' },
-          { path: '/project2', priority: 1, changefreq: 'always' },
-          { path: '/project3', priority: 1, changefreq: 'always' },
-          { path: '/about', priority: 1, changefreq: 'always' },
+          { path: '/', priority: 1.0, changefreq: 'daily' },
+          { path: '/project2', priority: 0.8, changefreq: 'weekly' },
+          { path: '/project3', priority: 0.8, changefreq: 'weekly' },
+          { path: '/about', priority: 0.6, changefreq: 'monthly' },
         ],
         options: {
           skipgzip: true
