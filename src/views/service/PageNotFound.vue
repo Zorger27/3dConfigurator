@@ -14,7 +14,6 @@ export default {
 
     this.setOpenGraphTags(metaDescription, title, description, imageUrl, url);
     this.setPageTitle(mainTitle);
-    this.setCanonical(url);
   },
   components: {},
   methods: {},
