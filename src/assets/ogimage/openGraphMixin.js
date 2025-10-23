@@ -15,6 +15,16 @@ export const openGraphMixin = {
       }
     },
 
+    setCanonical(url) {
+      const existingCanonical = document.querySelector('link[rel="canonical"]');
+      if (existingCanonical) existingCanonical.remove();
+
+      const link = document.createElement('link');
+      link.setAttribute('rel', 'canonical');
+      link.setAttribute('href', url);
+      document.head.appendChild(link);
+    },
+
     setOpenGraphTags(metaDescription, title, description, imageUrl, url) {
       const metaTags = [
         { name: 'description', content: metaDescription },
@@ -26,7 +36,6 @@ export const openGraphMixin = {
         { property: 'twitter:image', content: imageUrl },
         { property: 'og:url', content: url },
         { property: 'og:type', content: 'website' },
-        { property: 'og:site_name', content: 'https://Zorin.Expert' },
         { property: 'twitter:card', content: 'summary_large_image' }
       ];
 
